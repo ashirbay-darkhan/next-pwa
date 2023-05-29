@@ -1,8 +1,16 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import Link from "next/link";
+import Dashboard from "./components/Dashboard";
+import Login from "./components/Login";
+import {useEffect, useState} from "react";
 
 export default function Home() {
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
+
+  useEffect(() => {
+    setIsAuthenticated(JSON.parse(localStorage.getItem('is_authenticated')));
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -12,34 +20,11 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Next JS <a href="https://nextjs.org">PWA App</a>
-        </h1>
-
-        <p className={styles.description}>Create PWA App In Next JS</p>
-
-        <div className={styles.grid}>
-          <Link href="/about">
-            <a className={styles.card}>
-              <h2>About &rarr;</h2>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            </a>
-          </Link>
-
-          <Link href="/contact">
-            <a className={styles.card}>
-              <h2>Contact &rarr;</h2>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            </a>
-          </Link>
-
-          <Link href="/blog">
-            <a className={styles.card}>
-              <h2>Blog &rarr;</h2>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            </a>
-          </Link>
-        </div>
+        {isAuthenticated ? (
+          <Dashboard setIsAuthenticated={setIsAuthenticated} />
+        ) : (
+          <Login setIsAuthenticated={setIsAuthenticated} />
+        )}
       </main>
     </div>
   );
