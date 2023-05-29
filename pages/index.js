@@ -1,7 +1,7 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import Dashboard from "./components/Dashboard";
-import Login from "./components/Login";
+import Dashboard from "../components/Dashboard";
+import Login from "../components/Login";
 import {useEffect, useState} from "react";
 
 export default function Home() {
